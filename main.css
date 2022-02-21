@@ -1,0 +1,49 @@
+
+
+  .filter-container {
+    text-align: center;
+    text-decoration-thickness: 10%;
+  }
+  #published,#category {
+      font-size:xx-large;
+      font-weight: 500;   
+  }
+  #products{
+      
+      font-size:200%;
+
+  }
+
+  *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+  }
+
+  .footer-container{
+    background-color: #212329;
+    padding-bottom: 1rem;
+  }
+  .footer{
+    width: 20%;
+    height:20vh;
+    background-color: #212329;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+
+}
+
+  .footer-heading{
+      display: flex;
+      flex-direction: column;
+      margin-right: 4rem;
+  }
+
+  .footer-heading h2{
+      margin-bottom: 2rem;
+  }
+  
+  
