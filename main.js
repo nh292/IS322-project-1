@@ -1,14 +1,18 @@
 var mockDatabase = [
-    { _id: '123', name: 'Gucci Shirt', published: false, category: false , },
-    { _id: '583', name: 'Gucci Purse', published: false , category: false},
-    { _id: '954', name: 'Gucci Blazer', published: false , category: false},
-    { _id: '384', name: 'Gucci Belt', published: true , category: false },
-    { _id: '183', name: 'Tommy Belt', published: true , category: false },
-    { _id: '007', name: 'Levis 509', published: true, category: true },
-    { _id: '304', name: 'Wrangler Jeans', published: true, category: true },
-    { _id: '729', name: 'Carhartt Jeans', published: true , category: true},
-    { _id: '734', name: 'Gap Jeans', published: true , category: true},
+    { _id: '123',image:"images/shirt.jfif", price:55.50, name: 'Gucci Shirt', published: false, category: "shirt"  },
+    { _id: '583',image:"images/purse.jfif", price:55.50,name: 'Gucci Purse', published: false , category: "purse"},
+    { _id: '954',image:"images/blazer.jpg",price:55.50,name: 'Gucci Blazer', published: false , category:"Blazer"},
+    { _id: '384',image:"images/belt.jfif", price:45.49,name: 'Gucci Belt', published: true , category: "belt" },
+    { _id: '183',image:"images/belt2.png",price:25.99, name: 'Tommy Belt', published: true , category: "belt" },
+    { _id: '007',image:"images/jeans.jfif",price:49.99, name: 'Levis 509',published: true, category: "jeans" },
+    { _id: '304', image:"images/jeans1.jpg",price:49.50,name: 'Wrangler Jeans', published: true, category: "jeans" },
+    { _id: '729',image:"images/jeans3.jfif", price:39.50,name: 'Carhartt Jeans', published: true , category: "jeans"},
+    { _id: '734', image:"images/gap.jfif",price:48.99,name: 'Gap Jeans', published: true , category: "jeans"},
 ];
+
+var publishedFilter = true
+var categoryFilter = "all"
+var mockFilter = mockDatabase
 
 //Renders current selection of products into DOM
 function renderList(results){
@@ -18,7 +22,17 @@ function renderList(results){
     productDiv.innerHTML = '';
     // map each database record to a string containing html for its record
     const products = results.map((result,index) => {
-        return '<div>' + result.name + '</div>';
+        return `
+<div class="col-12 col-sm-6 col-md-4">
+  <div class="card" >
+    <img src="${result.image}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${result.name}</h5>
+      <p class="card-text">${result.price}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>`
     });
     // set the contents of the list to the new set of render html products
     products.forEach((item) => {
@@ -26,66 +40,59 @@ function renderList(results){
     });
 }
 
-// Function to Order results list 
-function orderBy(sortValue) {
-    // Sort method varies based on what type of value we're sorting 
-    var sortedResults = (sortValue === 'name') ? 
-        mockDatabase.sort(function (a, b) { // Strings need to be sorted in a slightly more compldex way
-            var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            // Sorts alphabetically.  -1 puts it before. 1 puts it after
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
-        }) : 
-        mockDatabase.sort(function (a, b) { // Numbers a booleans are much simpler. 
-                                            // Just need postive or negative number 
-            // Object properties can be accessed through a string representing their name
-            return a[sortValue] - b[sortValue];
-        });
-    renderList(sortedResults);
-}
 
-// Change events trigger after the value of a form input changes
-document.querySelector('#orderBy').addEventListener('change', function(event){
-    // Event is the JavaScript event that transpired, in our change a CHANGE event.
-    // Target is the element it was performed on, useful for when the event targets 
-    // multiple elements.
-    // Value has the name implies is the current value of the input element, if there is one
-    orderBy(event.target.value);
-});
 
 //call renderList with initial database 
 renderList (mockDatabase);
 
 function togglePublished (showPublished) {
-    const filteredResults = mockDatabase.filter((result) => {
+    console.log(showPublished)
+    if (showPublished ){
+        renderList(mockFilter)
+    }else{
+    mockFilter = mockFilter.filter((result) => {
         return showPublished || result.published;
     });
-    renderList(filteredResults);
     
+    renderList(mockFilter);
+    }
 }
 
 function toggleCategory (showCategory) {
-    const filteredResults = mockDatabase.filter((result) => {
-        return showCategory || result.category;
+    if (showCategory == "all"){
+        renderList(mockFilter)
+    }else{
+    mockFilter = mockFilter.filter((result) => {
+        return result.category == showCategory
     });
-    renderList(filteredResults);
+    renderList(mockFilter);
+    }
     
+    
+}
+
+function allFilters(){
+    if (publishedFilter  && categoryFilter == "all"){
+       console.log("hello ") 
+       
+       mockFilter = mockDatabase;
+
+    };
+
+    togglePublished (publishedFilter);
+    toggleCategory (categoryFilter);
 }
 
 document.querySelector('#published').addEventListener('change',(event) =>{
     // event.target.value contains current value of input
-    const value = event.target.value ==='true';
-    togglePublished(value);
+    publishedFilter = event.target.value ==='true';
+    allFilters();
 });
 
 
 document.querySelector('#category').addEventListener('change',(event) =>{
     // event.target.value contains current value of form input
-    const value = event.target.value ==='true';
-    toggleCategory(value);
+    categoryFilter = event.target.value;
+    allFilters();
+
 });
