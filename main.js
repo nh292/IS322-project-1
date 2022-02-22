@@ -1,11 +1,11 @@
 var mockDatabase = [
     { _id: '123',image:"images/shirt.jfif", price:55.50, name: 'Gucci Shirt', published: false, category: "shirt"  },
-    { _id: '583',image:"images/purse.jfif", price:55.50,name: 'Gucci Purse', published: false , category: "purse"},
-    { _id: '954',image:"images/blazer.jpg",price:55.50,name: 'Gucci Blazer', published: false , category:"Blazer"},
+    { _id: '583',image:"images/purse.jfif", price:99.59,name: 'Gucci Purse', published: false , category: "purse"},
+    { _id: '954',image:"images/blazer.jpg",price:98.99,name: 'Gucci Blazer', published: false , category:"Blazer"},
     { _id: '384',image:"images/belt.jfif", price:45.49,name: 'Gucci Belt', published: true , category: "belt" },
     { _id: '183',image:"images/belt2.png",price:25.99, name: 'Tommy Belt', published: true , category: "belt" },
     { _id: '007',image:"images/jeans.jfif",price:49.99, name: 'Levis 509',published: true, category: "jeans" },
-    { _id: '304', image:"images/jeans1.jpg",price:49.50,name: 'Wrangler Jeans', published: true, category: "jeans" },
+    { _id: '304', image:"images/jeans1.jpg",price:49.52,name: 'Wrangler Jeans', published: true, category: "jeans" },
     { _id: '729',image:"images/jeans3.jfif", price:39.50,name: 'Carhartt Jeans', published: true , category: "jeans"},
     { _id: '734', image:"images/gap.jfif",price:48.99,name: 'Gap Jeans', published: true , category: "jeans"},
 ];
@@ -96,3 +96,34 @@ document.querySelector('#category').addEventListener('change',(event) =>{
     allFilters();
 
 });
+
+document.querySelector('#order').addEventListener('change',(event) =>{
+    // event.target.value contains current value of form input
+    order(event.target.value);
+
+});
+
+function order(value){
+    
+    if (value == "priceAsc"){
+        const filterSort = mockFilter.sort((a,b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0))
+        renderList(filterSort)
+    }
+
+    else if (value == "priceDesc"){
+        const filterSort = mockFilter.sort((b,a) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0))
+        renderList(filterSort)
+    }
+
+    else if (value == "nameAsc"){
+        const filterSort = mockFilter.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        renderList(filterSort)
+    }
+    
+    else if(value == "nameDesc") {
+        const filterSort = mockFilter.sort((b,a) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        renderList(filterSort)
+    }
+}
+
+

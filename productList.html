@@ -25,30 +25,30 @@
       </header>
     <div class="container">
         <h2 class="text-center">The Great Fashion</h2>
-        <div class="filter-container">
-            <select id="published">
+        <div class="row">
+        <div class="col-12 col-md-4">
+            <select id="published" class="form-select">
                 <option value="true">All Prices</option>
                 <option value="false">Under $49.99</option>
             </select>
-            <select id="category">
+            <select id="category" class="form-select">
                 <option value="all">All Clothing</option>
                 <option value="jeans">Jeans Only</option>
             </select>
 
-            <select id="published">
-                <option value="true">All Prices</option>
-                <option value="false">Under $49.99</option>
+            <select id="order" class="form-select">
+              <option value="priceAsc">Order by Price (Low to High)</option>
+              <option value="priceDesc">Order by Price (High to Low)</option>
+              <option value="nameAsc">Order Alphbetically Ascending</option>
+              <option value="nameDesc">Order Alphbetically Descending</option>
             </select>
 
-            <select id="published">
-                <option value="true">All Prices</option>
-                <option value="false">Under $49.99</option>
-            </select>
 
         </div>
-        <div id="products" class="row mt-5" ></div>
-    
-
+        <div class="col-12 col-md-8">
+           <div id="products" class="row mt-5" ></div>
+        </div>
+      </div>
         <div class="container">
             <footer class="py-3 my-4">
               <ul class="nav justify-content-center border-bottom pb-3 mb-3 flex-column flex-md-row">

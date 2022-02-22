@@ -6,7 +6,7 @@
     text-align: center;
     text-decoration-thickness: 10%;
   }
-  #published,#category {
+  select {
       font-size:xx-large;
       font-weight: 500;   
   }
