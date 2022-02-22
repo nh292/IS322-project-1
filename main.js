@@ -103,6 +103,9 @@ document.querySelector('#order').addEventListener('change',(event) =>{
 
 });
 
+//the sort method used here was researched and copied from stack overflow and tailored to work on this site
+// https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value 
+
 function order(value){
     
     if (value == "priceAsc"){
